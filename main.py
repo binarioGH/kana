@@ -25,12 +25,15 @@ class Kana:
 		self.char = choice(list(self.content))
 		print(self.char)
 		label.config(text=self.content[self.char][self.mode])
-	def check_result(self, root, label, ans):
-		ans = ans.lower()
+
+	def check_result(self, root, label, entry):
+		ans = entry.get()
+		ans = ans.strip().lower()
+		entry.delete(0, "end")
 		if ans == self.char:
 			label.config(bg="#51F661")
 			root.update()
-			sleep(0.01)
+			sleep(0.1)
 			label.config(bg="#F52E2E")
 			self.get_random_char(label)
 
@@ -38,18 +41,18 @@ class Kana:
 def main():
 	kana = Kana()
 	root = Tk()
-	root.title("Learn kanas")
+	root.title("Learn kana")
 	root.geometry("500x500")
 	mframe = Frame(root, bg="white")
 	mframe.place(relx=0, rely=0, relwidth=1, relheight=1)
 	letter = Label(mframe, bg="#F52E2E", fg="white",font=("Courier", 16))
-	letter.place(relx=0, rely=0.2, relwidth=1, relheight=0.15) #wtf is going on?
-	kana.get_random_char(letter)#i am so tired
+	letter.place(relx=0, rely=0.2, relwidth=1, relheight=0.15) 
+	kana.get_random_char(letter)
 	entry = Entry(mframe)
 	entry.place(relx=0.4, rely=0.7, relwidth=0.2, relheight=0.1)
-	check = Button(mframe, text="Check!", command=lambda: kana.check_result(root, letter, entry.get()))
+	check = Button(mframe, text="Check!", command=lambda: kana.check_result(root, letter, entry))
 	check.place(relx=0.45, rely=0.85, relwidth=0.1, relheight=0.1)
-	root.bind("<Return>", lambda *args, **kwargs:kana.check_result(root, letter, entry.get()))
+	root.bind("<Return>", lambda *args, **kwargs:kana.check_result(root, letter, entry))
 	root.mainloop()
 
 
