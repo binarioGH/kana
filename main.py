@@ -55,15 +55,15 @@ class Menu:
 	def select_mode(self):
 		root = Tk()
 		root.title("Main Menu")
-		root.geometry("500x500")
+		root.geometry("800x450")
 		root.protocol("WM_DELETE_WINDOW", lambda *args, **kwargs:self.__on_close(root))
 		mframe = Frame(root, bg="white")
 		mframe.place(relx=0, rely=0, relwidth=1, relheight=1)
 		title = Label(mframe, bg="white", font='Helvetica 18 bold', fg="black", text="Main Menu")
 		title.place(relx = 0.3, rely=0.1, relwidth=0.4, relheight=0.1)
-		hiragana = Button(mframe, text="Hiragana", bg="#FF9760",font="Helvetica 14 bold", fg="black", command=lambda: self.start(root, 1))
+		hiragana = Button(mframe, text="Hiragana", bg="#FA5858",font="Helvetica 14 bold", fg="white", command=lambda: self.start(root, 1))
 		hiragana.place(relx=0.3, rely=0.3, relwidth=0.4, relheight=0.1)
-		katakana = Button(mframe, text="Katakana", bg="#FF9760", font="Helvetica 14 bold", fg="black", command=lambda: self.start(root, 0))		
+		katakana = Button(mframe, text="Katakana", bg="#FA5858", font="Helvetica 14 bold", fg="white", command=lambda: self.start(root, 0))		
 		katakana.place(relx=0.3, rely=0.5, relwidth=0.4, relheight=0.1)
 		root.mainloop()
 
@@ -78,18 +78,26 @@ class Menu:
 
 def run(m):
 	kana = Kana(mode=m)
+	if m == 1:
+		title = "Hiragana"
+	else:
+		title = "Katakana"
 	root = Tk()
 	root.title("Learn kana")
-	root.geometry("500x500")
+	root.geometry("800x450")
 	mframe = Frame(root, bg="white")
 	mframe.place(relx=0, rely=0, relwidth=1, relheight=1)
+	ltitle = Label(mframe, bg="white", fg="black", font=("Courier", 20), text=title)
+	ltitle.place(relx=0, rely=0.05, relwidth=1, relheight=0.1)
 	letter = Label(mframe, bg="#FA5858", fg="white",font=("Courier", 16))
 	letter.place(relx=0, rely=0.2, relwidth=1, relheight=0.15) 
 	kana.get_random_char(letter)
+	background = Label(mframe, bg="#FA5858")
+	background.place(relx=0.25, rely=0.48, relwidth=0.5, relheight=0.14)
 	entry = Entry(mframe)
-	entry.place(relx=0.4, rely=0.7, relwidth=0.2, relheight=0.1)
+	entry.place(relx=0.34, rely=0.5, relwidth=0.2, relheight=0.1)
 	check = Button(mframe, text="Check!", command=lambda: kana.check_result(root, letter, entry))
-	check.place(relx=0.45, rely=0.85, relwidth=0.1, relheight=0.1)
+	check.place(relx=0.55, rely=0.5, relwidth=0.1, relheight=0.1)
 	root.bind("<Return>", lambda *args, **kwargs:kana.check_result(root, letter, entry))
 	root.mainloop()
 
