@@ -10,7 +10,7 @@ def playsound(file):
 	PlaySound(file, SND_ASYNC)
 
 class Kana:
-	def __init__(self, file="alphabet.json", mode=1):
+	def __init__(self, file="source\\alphabet.json", mode=1):
 		self.load_content(file)
 		self.mode = mode
 		self.current_char = ""
