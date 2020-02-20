@@ -57,7 +57,7 @@ class Kana:
 		#self.kanji = self.load_content(kanji) || 
 		self.mode = mode
 		self.char = ""
-		if self.content == -1:
+		if self.kana == -1:
 			print("There was a problem loading the file.")
 			exit()
 
