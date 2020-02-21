@@ -116,11 +116,17 @@ class Menu:
 		root.destroy()
 		self.closed = True
 
+def close(root):
+	root.destroy()
+	menu.closed = True
+
+
 def kanji():
 	characters = Kanji()
 	root = Tk()
 	root.title("Learn kanji")
 	root.geometry("800x450")
+	root.protocol("WM_DELETE_WINDOW", lambda *args, **kwargs:close(root))
 	mframe = Frame(root, bg="white")
 	mframe.place(relx=0, rely=0, relwidth=1, relheight=1)
 	ltitle = Label(mframe, bg="white", fg="black", font=("Courier", 20), text="Kanji")
@@ -137,6 +143,8 @@ def kanji():
 	check = Button(mframe, text="Check!", command=lambda: characters.check_result(root, letter, entry, hiragana))
 	check.place(relx=0.55, rely=0.5, relwidth=0.1, relheight=0.1)
 	root.bind("<Return>", lambda *args, **kwargs:characters.check_result(root, letter, entry, hiragana))
+	go_back = Button(root, bg="#FA5858", fg="white", text="<-", command=lambda:root.destroy())
+	go_back.place(relx=0.05, rely=0.05, relwidth=0.05, relheight=0.05)
 	root.mainloop()
 
 
@@ -148,6 +156,7 @@ def run(m):
 		title = "Katakana"
 	root = Tk()
 	root.title("Learn kana")
+	root.protocol("WM_DELETE_WINDOW", lambda *args, **kwargs:close(root))
 	root.geometry("800x450")
 	mframe = Frame(root, bg="white")
 	mframe.place(relx=0, rely=0, relwidth=1, relheight=1)
@@ -163,6 +172,8 @@ def run(m):
 	check = Button(mframe, text="Check!", command=lambda: kana.check_result(root, letter, entry))
 	check.place(relx=0.55, rely=0.5, relwidth=0.1, relheight=0.1)
 	root.bind("<Return>", lambda *args, **kwargs:kana.check_result(root, letter, entry))
+	go_back = Button(root, bg="#FA5858", fg="white", text="<-", command=lambda:root.destroy())
+	go_back.place(relx=0.05, rely=0.05, relwidth=0.05, relheight=0.05)
 	root.mainloop()
 
 
