@@ -24,7 +24,7 @@ class Kanji:
 		ck = choice(list(self.kanji)) #ck = current kanji
 		label.config(text=choice(list(self.kanji)))
 		#print(self.kanji[ck][1])
-		hiragana.config(text="Pronunciation: {}".format(self.kanji[ck][0]))
+		hiragana.config(text="Pronunciation: {}".format(", ".join(self.kanji[ck][0])))
 
 	def check_result(self, root, label, entry, hiragana):
 		ans = entry.get()
