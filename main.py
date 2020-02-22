@@ -4,6 +4,7 @@ from json import loads, dumps
 from random import choice
 from codecs import open as copen
 from time import sleep
+from os import listdir
 from winsound import PlaySound, SND_ASYNC
 
 def playsound(file):
@@ -19,7 +20,7 @@ def load_content(file):
 class Kanji:
 	def __init__(self, kanji="source\\basic_kanji.json"):
 		self.kanji = load_content(kanji)
-
+		
 	def get_random_char(self, label, hiragana):
 		ck = choice(list(self.kanji)) #ck = current kanji
 		label.config(text=choice(list(self.kanji)))
@@ -35,14 +36,14 @@ class Kanji:
 		entry.delete(0, "end")
 		#print(ans)
 		if ans in current_answers: #you fucking idiot
-			playsound("source\\correct.wav")
+			playsound("source\\sounds\\correct.wav")
 			label.config(bg="#51F661")
 			root.update()
 			sleep(0.1)
 			label.config(bg="#FA5858")
 			self.get_random_char(label, hiragana) 
 		else:
-			playsound("source\\wrong.wav")
+			playsound("source\\sounds\\wrong.wav")
 			label.config(bg="#F52E2E")
 			root.update()
 			sleep(0.1)
@@ -71,14 +72,17 @@ class Kana:
 		ans = ans.strip().lower()
 		entry.delete(0, "end")
 		if ans == self.char:
-			playsound("source\\correct.wav")
+			if "{}.wav".format(ans) in listdir("source\\sounds") and False: #I will fix this, give me a sec
+				playsound("source\\sounds\\{}.wav".format(ans))
+			else:
+				playsound("source\\sounds\\correct.wav")
 			label.config(bg="#51F661")
 			root.update()
 			sleep(0.1)
 			label.config(bg="#FA5858")
 			self.get_random_char(label)
 		else:
-			playsound("source\\wrong.wav")
+			playsound("source\\sounds\\wrong.wav")
 			label.config(bg="#F52E2E")
 			root.update()
 			sleep(0.1)
